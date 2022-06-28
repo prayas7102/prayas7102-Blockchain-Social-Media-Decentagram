@@ -7,8 +7,7 @@ import Web3 from 'web3';
 import './App.css';
 
 const ipfsClient = require('ipfs-http-client')
-const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' }) // leaving out the arguments will default to these values
-
+const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
 class App extends Component {
 
   async componentWillMount() {
@@ -78,14 +77,17 @@ class App extends Component {
         return
       }
       this.setState({ loading: true })
-      this.state.decentragram.methods.uploadImage(result[0].hash, description).send({ from: this.state.account }).on('transactionHash', (hash) => {
+      this.state.decentragram.methods.uploadImage(result[0].hash, description)
+      .send({ from: this.state.account }).on('transactionHash', (hash) => {
         this.setState({ loading: false })
       })
     })
   }
   tipImageOwner(id, tipAmount) {
     this.setState({ loading: true })
-    this.state.decentragram.methods.tipImageOwner(id).send({ from: this.state.account, value: tipAmount }).on('transactionHash', (hash) => {
+    this.state.decentragram.methods.tipImageOwner(id).send({ 
+      from: this.state.account, value: tipAmount }).on('transactionHash', 
+      (hash) => {
       this.setState({ loading: false })
     })
   }
